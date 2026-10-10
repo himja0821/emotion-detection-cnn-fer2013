@@ -1,0 +1,18 @@
+FER-2013 - Emotion CNN classification report
+=======================================================
+
+Overall accuracy: 63.78%
+
+              precision    recall  f1-score   support
+
+       angry     0.5504    0.5647    0.5574       958
+     disgust     0.7302    0.4144    0.5287       111
+        fear     0.4892    0.4189    0.4513      1024
+       happy     0.8350    0.8670    0.8507      1774
+         sad     0.5465    0.4050    0.4652      1247
+    surprise     0.7135    0.8002    0.7544       831
+     neutral     0.5485    0.6926    0.6122      1233
+
+    accuracy                         0.6378      7178
+   macro avg     0.6305    0.5947    0.6029      7178
+weighted avg     0.6327    0.6378    0.6305      7178

@@ -1,0 +1,9 @@
+{
+  "epochs_ran": 39,
+  "training_minutes": 39.72,
+  "best_val_accuracy": 0.6418,
+  "test_accuracy": 0.6378,
+  "test_loss": 0.9857,
+  "num_params": 1470247,
+  "dataset": "FER-2013 (msambare/fer2013)"
+}

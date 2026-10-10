@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotion Detection - FER-2013 CNN</title>
+  <style>
+    :root { --bg:#0f172a; --card:#1e293b; --accent:#2ecc71; --text:#e2e8f0; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); }
+    header { padding:28px 20px 8px; text-align:center; }
+    header h1 { margin:0; font-size:1.6rem; }
+    header p { color:var(--muted); margin:6px 0 0; font-size:.9rem; }
+    .wrap { max-width:960px; margin:0 auto; padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    @media (max-width:760px){ .wrap { grid-template-columns:1fr; } }
+    .card { background:var(--card); border-radius:14px; padding:18px; box-shadow:0 8px 24px rgba(0,0,0,.25); }
+    .drop { border:2px dashed #334155; border-radius:12px; padding:26px; text-align:center; color:var(--muted); cursor:pointer; transition:.2s; }
+    .drop:hover, .drop.drag { border-color:var(--accent); color:var(--text); }
+    img.preview { width:100%; border-radius:12px; margin-top:12px; display:none; }
+    button { background:var(--accent); color:#06281a; border:0; border-radius:10px; padding:11px 18px; font-weight:700; cursor:pointer; font-size:.95rem; }
+    button.secondary { background:#334155; color:var(--text); }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .row { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .result h2 { margin:.2rem 0 .6rem; text-transform:capitalize; color:var(--accent); }
+    .conf { color:var(--muted); margin-bottom:14px; }
+    .bar { display:flex; align-items:center; gap:10px; margin:7px 0; font-size:.85rem; }
+    .bar .name { width:70px; text-transform:capitalize; color:var(--muted); }
+    .bar .track { flex:1; background:#0b1220; border-radius:6px; height:12px; overflow:hidden; }
+    .bar .fill { height:100%; background:linear-gradient(90deg,#2563eb,#2ecc71); width:0; transition:width .4s; }
+    .bar .val { width:52px; text-align:right; }
+    video { width:100%; border-radius:12px; display:none; }
+    .spinner { color:var(--muted); display:none; margin-top:10px; }
+    .foot { text-align:center; color:var(--muted); font-size:.78rem; padding:18px; }
+    .err { color:#f87171; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Emotion Detection from Facial Expressions</h1>
+    <p>CNN trained on FER-2013 &middot; 7 emotion classes</p>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <div id="drop" class="drop">Click or drop a face image here</div>
+      <input type="file" id="file" accept="image/*" style="display:none">
+      <img id="preview" class="preview" alt="preview">
+      <video id="video" autoplay playsinline></video>
+      <div class="row">
+        <button id="btnPredict" disabled>Analyze</button>
+        <button id="btnWebcam" class="secondary">Use webcam</button>
+        <button id="btnCapture" class="secondary" style="display:none">Capture</button>
+      </div>
+      <div id="spinner" class="spinner">Analyzing...</div>
+      <div id="err" class="err"></div>
+    </div>
+
+    <div class="card result">
+      <h2 id="emotion">&mdash;</h2>
+      <div class="conf" id="confidence">Awaiting an image&hellip;</div>
+      <div id="bars"></div>
+    </div>
+  </div>
+  <div class="foot">FER-2013 &middot; TensorFlow / Keras CNN &middot; educational demo</div>
+
+  <script>
+    const drop = document.getElementById('drop');
+    const fileInput = document.getElementById('file');
+    const preview = document.getElementById('preview');
+    const video = document.getElementById('video');
+    const btnPredict = document.getElementById('btnPredict');
+    const btnWebcam = document.getElementById('btnWebcam');
+    const btnCapture = document.getElementById('btnCapture');
+    const spinner = document.getElementById('spinner');
+    const errBox = document.getElementById('err');
+    const emotionEl = document.getElementById('emotion');
+    const confidenceEl = document.getElementById('confidence');
+    const barsEl = document.getElementById('bars');
+    const EMOTIONS = {{ emotions|tojson }};
+    let currentDataURL = null, stream = null;
+
+    function showPreview(src){ currentDataURL = src; preview.src = src; preview.style.display='block'; video.style.display='none'; btnPredict.disabled=false; }
+
+    drop.onclick = () => fileInput.click();
+    drop.ondragover = e => { e.preventDefault(); drop.classList.add('drag'); };
+    drop.ondragleave = () => drop.classList.remove('drag');
+    drop.ondrop = e => { e.preventDefault(); drop.classList.remove('drag'); if(e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0]); };
+    fileInput.onchange = e => { if(e.target.files[0]) readFile(e.target.files[0]); };
+    function readFile(f){ const r=new FileReader(); r.onload=()=>showPreview(r.result); r.readAsDataURL(f); }
+
+    btnWebcam.onclick = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({video:true});
+        video.srcObject = stream; video.style.display='block'; preview.style.display='none';
+        btnCapture.style.display='inline-block'; btnWebcam.style.display='none'; btnPredict.disabled=true;
+      } catch(e){ errBox.textContent = 'Webcam error: '+e.message; }
+    };
+    btnCapture.onclick = () => {
+      const c=document.createElement('canvas'); c.width=video.videoWidth; c.height=video.videoHeight;
+      c.getContext('2d').drawImage(video,0,0); showPreview(c.toDataURL('image/png'));
+    };
+
+    btnPredict.onclick = async () => {
+      if(!currentDataURL) return;
+      spinner.style.display='block'; errBox.textContent='';
+      try {
+        const res = await fetch('/api/predict', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({image: currentDataURL})
+        });
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.error || 'Server error');
+        render(data);
+      } catch(e){ errBox.textContent = e.message; }
+      finally { spinner.style.display='none'; }
+    };
+
+    function render(data){
+      emotionEl.textContent = data.emotion;
+      confidenceEl.textContent = `Confidence: ${data.confidence}%` + (data.face_detected ? ' (face detected)' : '');
+      if(data.annotated_image){ preview.src = data.annotated_image; }
+      barsEl.innerHTML='';
+      const entries = EMOTIONS.map(e => [e, data.probabilities[e] ?? 0]).sort((a,b)=>b[1]-a[1]);
+      for(const [name,val] of entries){
+        const row=document.createElement('div'); row.className='bar';
+        row.innerHTML = `<span class="name">${name}</span>
+          <span class="track"><span class="fill" style="width:${val}%"></span></span>
+          <span class="val">${val}%</span>`;
+        barsEl.appendChild(row);
+      }
+    }
+  </script>
+</body>
+</html>
