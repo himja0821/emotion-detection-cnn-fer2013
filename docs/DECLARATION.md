@@ -10,6 +10,7 @@ Neural Networks (FER-2013)
 **Class / Branch:** CSE — Section S2, Year II / Semester IV
 **Institution:** Sreenidhi University, Hyderabad
 **Course:** Deep Learning
+**Date of completion:** 10 October 2026
 
 I hereby declare that this project, *Emotion Detection from Facial Expressions
 using Convolutional Neural Networks*, is my own original work carried out as
@@ -27,8 +28,6 @@ I further declare that:
   `docs/report.md` (References).
 - Figures and result artifacts are generated directly by the scripts in this
   repository, except where an external resource is noted.
-
-**Signature:** _______________________  **Date:** ______________
 
 ---
 
