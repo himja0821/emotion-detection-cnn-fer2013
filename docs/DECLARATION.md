@@ -5,21 +5,24 @@
 **Project:** Emotion Detection from Facial Expressions using Convolutional
 Neural Networks (FER-2013)
 
-**Student:** HIMAJA VUCHURU (HIMAJA V)
-**Roll Number (URN):** 2401100CSE0115
-**Class / Branch:** CSE — Section S2, Year II / Semester IV
+**Team project by:**
+
+- Himaja Vuchuru — Roll No. **2401100CSE0115** — Section C4
+- Sai Sahasra Thota — Roll No. **2401100CSE0112** — Section C4
+
+**Class / Branch:** CSE — Section C4, Year II / Semester IV
 **Institution:** Sreenidhi University, Hyderabad
 **Course:** Deep Learning
 **Date of completion:** 10 October 2026
 
-I hereby declare that this project, *Emotion Detection from Facial Expressions
-using Convolutional Neural Networks*, is my own original work carried out as
+We hereby declare that this project, *Emotion Detection from Facial Expressions
+using Convolutional Neural Networks*, is our own original work carried out as
 part of the Deep Learning course. All source code in this repository (`src/`,
-`webapp/`, `scripts/`, `tests/`, `notebooks/`) was written by me, and the
+`webapp/`, `scripts/`, `tests/`, `notebooks/`) was written by us, and the
 training, evaluation, and results reported here (`results/`) were produced by
 running this code on the FER-2013 dataset.
 
-I further declare that:
+We further declare that:
 
 - This work has **not been copied** from any other student or source, and has
   not been submitted elsewhere for assessment.
@@ -85,7 +88,7 @@ trained from scratch in this project.
 
 Parts of the code, documentation, and figures were developed with the help of
 an AI coding assistant. All generated content was reviewed, tested, and
-validated by me before inclusion, and the design decisions and results are my
+validated by us before inclusion, and the design decisions and results are our
 own responsibility.
 
 ---

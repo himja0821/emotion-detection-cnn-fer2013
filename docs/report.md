@@ -5,6 +5,8 @@
 **Model:** Convolutional Neural Network (CNN) — TensorFlow / Keras
 **Final test accuracy:** **63.78 %**
 
+**Team:** Himaja Vuchuru (2401100CSE0115) · Sai Sahasra Thota (2401100CSE0112) — Section C4, Sreenidhi University
+
 ---
 
 ## 1. Problem Statement
