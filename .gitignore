@@ -21,6 +21,9 @@ models/*.npz
 results/*.log
 results/*.pid
 
+# Final Word report — kept local only, not published to GitHub
+docs/Deep_Learning_Project_Report.docx
+
 # Editors / OS
 .idea/
 .vscode/
