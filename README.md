@@ -39,9 +39,22 @@ Emotion Detection Project - DEEP LEARNING/
 ├── scripts/                    # prepare_data.py, make_samples.py
 ├── tests/                      # pytest suite
 ├── models/                     # trained model (.keras / .h5)
-├── results/                    # metrics + plots
-└── docs/report.md              # full project report
+├── results/                    # metrics + plots + output examples
+└── docs/
+    ├── report.md               # full project report
+    ├── DECLARATION.md          # originality + acknowledgements
+    ├── checklist.md            # requirement -> evidence map
+    └── architecture.png        # CNN architecture diagram
 ```
+
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [`docs/report.md`](docs/report.md) | Full report: dataset, preprocessing, augmentation, class balancing, leakage prevention, architecture, model selection & baselines, hyper-parameters, hardware/software, results, error analysis, reproducibility |
+| [`docs/DECLARATION.md`](docs/DECLARATION.md) | Declaration of originality and acknowledgement of external resources |
+| [`docs/checklist.md`](docs/checklist.md) | Map of each required documentation item to its evidence |
+| [`docs/architecture.png`](docs/architecture.png) | CNN architecture diagram |
 
 ## Setup
 
@@ -128,6 +141,16 @@ double-click `confusion_matrix.png`, `training_curves.png` and
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
+```
+
+## Regenerate documentation artifacts
+
+```powershell
+# CNN architecture diagram -> docs/architecture.png
+.\.venv\Scripts\python.exe scripts\make_architecture_diagram.py
+
+# prediction output examples -> results/output_examples/ + results/prediction_output_examples.txt
+.\.venv\Scripts\python.exe scripts\make_output_examples.py
 ```
 
 ## Tech stack

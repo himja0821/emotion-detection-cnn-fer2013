@@ -1,0 +1,87 @@
+Actual model output on example faces (data/samples)
+=======================================================
+
+file            : sample_angry.png  (true label: angry)
+predicted emotion: angry
+confidence       : 41.18%
+probabilities:
+      angry:  41.18%  ################
+       fear:  25.04%  ##########
+    neutral:   9.30%  ####
+      happy:   9.06%  ####
+        sad:   8.34%  ###
+   surprise:   6.91%  ###
+    disgust:   0.17%  
+-------------------------------------------------------
+file            : sample_disgust.png  (true label: disgust)
+predicted emotion: surprise
+confidence       : 30.51%
+probabilities:
+   surprise:  30.51%  ############
+    disgust:  24.00%  ##########
+      happy:  24.00%  ##########
+    neutral:   8.64%  ###
+      angry:   6.20%  ##
+       fear:   3.75%  #
+        sad:   2.90%  #
+-------------------------------------------------------
+file            : sample_fear.png  (true label: fear)
+predicted emotion: fear
+confidence       : 45.46%
+probabilities:
+       fear:  45.46%  ##################
+        sad:  36.36%  ###############
+      angry:   8.02%  ###
+    neutral:   7.24%  ###
+   surprise:   1.59%  #
+      happy:   1.32%  #
+    disgust:   0.02%  
+-------------------------------------------------------
+file            : sample_happy.png  (true label: happy)
+predicted emotion: happy
+confidence       : 99.58%
+probabilities:
+      happy:  99.58%  ########################################
+   surprise:   0.34%  
+       fear:   0.04%  
+    neutral:   0.03%  
+      angry:   0.01%  
+        sad:   0.00%  
+    disgust:   0.00%  
+-------------------------------------------------------
+file            : sample_neutral.png  (true label: neutral)
+predicted emotion: fear
+confidence       : 38.16%
+probabilities:
+       fear:  38.16%  ###############
+    neutral:  30.01%  ############
+        sad:  16.74%  #######
+      angry:   9.74%  ####
+      happy:   4.65%  ##
+   surprise:   0.50%  
+    disgust:   0.21%  
+-------------------------------------------------------
+file            : sample_sad.png  (true label: sad)
+predicted emotion: angry
+confidence       : 77.11%
+probabilities:
+      angry:  77.11%  ###############################
+        sad:  10.83%  ####
+       fear:   6.59%  ###
+    neutral:   5.27%  ##
+    disgust:   0.15%  
+   surprise:   0.04%  
+      happy:   0.01%  
+-------------------------------------------------------
+file            : sample_surprise.png  (true label: surprise)
+predicted emotion: surprise
+confidence       : 67.28%
+probabilities:
+   surprise:  67.28%  ###########################
+       fear:  32.62%  #############
+      happy:   0.07%  
+    neutral:   0.01%  
+        sad:   0.01%  
+      angry:   0.01%  
+    disgust:   0.00%  
+-------------------------------------------------------
